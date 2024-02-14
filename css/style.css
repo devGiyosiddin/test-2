@@ -172,6 +172,15 @@ a {
   background: rgba(146, 242, 255, 0.15);
   z-index: -1;
 }
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
 .tabcontainer {
   display: flex;
   width: 1130px;
@@ -516,6 +525,7 @@ a {
   background-image: linear-gradient(315deg, #2d3436 0%, #000000 74%);
   z-index: 99999;
   perspective: 500px;
+  transition: all 0.5s ease;
 }
 section {
   position: absolute;
