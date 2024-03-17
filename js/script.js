@@ -138,7 +138,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   function showModalByScroll() {
     if (
-      window.pageYOffset + document.documentElement.clientHeight >=
+      window.scrollY + document.documentElement.clientHeight >=
       document.documentElement.scrollHeight
     ) {
       openModal()
