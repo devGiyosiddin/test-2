@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   const tabsParent = document.querySelector('.tabheader__items'),
     tabs = document.querySelectorAll('.tabheader__item'),
     tabsContent = document.querySelectorAll('.tabcontent'),
@@ -158,10 +158,10 @@ window.addEventListener('DOMContentLoaded', () => {
       this.classes = classes
       this.parent = document.querySelector(parentSelector)
       this.transfer = 11000
-      this.chageToUZS()
+      this.changeToUZS()
     }
 
-    chageToUZS() {
+    changeToUZS() {
       this.price = this.price * this.transfer
     }
 
