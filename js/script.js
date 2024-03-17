@@ -296,4 +296,49 @@ window.addEventListener('DOMContentLoaded', async () => {
   /* fetch('http://localhost/serial/menu')
     .then(data => data.json())
     .then(res => console.log(res)) */
+
+
+  // Sliders
+  const slides = document.querySelectorAll('.offer__slide'),
+    nextSlide = document.querySelector('.offer__slider-next'),
+    prevSlide = document.querySelector('.offer__slider-prev'),
+    current = document.querySelector('#current'),
+    total = document.querySelector('#total');
+  
+  let slideIdx = 1;
+
+  if (slides.length < 10) {
+    total.textContent = `0${slides.length}`
+  } else {
+    total.textContent = slides.length;
+  }
+
+  showSlides(showSlides);
+
+  function showSlides(idx) {
+    if (idx > slides.length) {
+      slideIdx = 1;
+    }
+    if (idx < 1) {
+      slideIdx = slides.length;
+    }
+    slides.forEach(item => item.style.display = 'none');
+    slides[slideIdx - 1].style.display = 'block';
+
+    if (slides.length < 10) {
+      current.textContent = `0${slideIdx}`
+    } else {
+      current.textContent = slideIdx;
+    }
+  };
+
+  function plusSlides(idx) {
+    showSlides(slideIdx += idx)
+  }
+  nextSlide.addEventListener('click', () => {
+    plusSlides(1)
+  })
+  prevSlide.addEventListener('click', () => {
+    plusSlides(-1)
+  })
 })
