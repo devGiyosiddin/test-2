@@ -46,9 +46,7 @@ window.addEventListener('DOMContentLoaded', () => {
   })
 
   // Timer
-
   const deadline = '2022-08-11'
-
   function getTimeRemaining(endtime) {
     let days, hours, minutes, seconds
     const timer = Date.parse(endtime) - Date.parse(new Date())
@@ -102,10 +100,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   setClock('.timer', deadline)
 
+
   // Modal
   const modalTrigger = document.querySelectorAll('[data-modal]'),
-    modal = document.querySelector('.modal'),
-    modalCloseBtn = document.querySelector('[data-close]')
+    modal = document.querySelector('.modal');
 
   function closeModal() {
     modal.classList.add('hide')
@@ -124,10 +122,8 @@ window.addEventListener('DOMContentLoaded', () => {
     item.addEventListener('click', openModal)
   })
 
-  modalCloseBtn.addEventListener('click', closeModal)
-
   modal.addEventListener('click', (e) => {
-    if (e.target == modal) {
+    if (e.target == modal || e.target.getAttribute('data-close') == '') {
       closeModal()
     }
   })
@@ -138,7 +134,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-  // const modalTimerId = setTimeout(openModal, 5000)
+  const modalTimerId = setTimeout(openModal, 5000)
 
   function showModalByScroll() {
     if (
@@ -149,7 +145,6 @@ window.addEventListener('DOMContentLoaded', () => {
       window.removeEventListener('scroll', showModalByScroll)
     }
   }
-
   window.addEventListener('scroll', showModalByScroll)
 
   // Class
@@ -195,32 +190,111 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  new MenuCard(
-    'img/tabs/1.png',
-    'usual',
-    'Plan "Usual"',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.',
-    10,
-    '.menu .container'
-  ).render()
+  async function  getRecources(url) {
+    const res = await fetch(url)
 
-  new MenuCard(
-    'img/tabs/2.jpg',
-    'plan',
-    'Plan “Premium”',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.',
-    20,
-    '.menu .container',
-    'menu__item'
-  ).render()
+    return await res.json()
+  }
+    
+  getRecources('http://localhost:3000/menu').then((data) => {
+    data.data.forEach(({ img, altimg, title, price }) => {
+      new MenuCard(img, altimg, title, price, '.menu .container').render()
+    })
+  })
 
-  new MenuCard(
-    'img/tabs/3.jpg',
-    'vip',
-    'Plan VIP',
-    'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.',
-    30,
-    '.menu .container',
-    'menu__item'
-  ).render()
+  // Forms
+  const forms = document.querySelectorAll('form');
+
+  forms.forEach((form) => {
+    bindPostData(form)
+  })
+
+  const msg = {
+    loading: 'Loading...',
+    success: "Thank's for submiting our form",
+    failure: 'Something went wrong!',
+  }
+
+  axios.get('http://localhost:3000/menu').then((data) => {
+    data.data.forEach(({ img, altimg, title, price }) => {
+      new MenuCard(img, altimg, title, price, '.menu .container').render()
+    })
+  })
+
+
+  function bindPostData(form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      form.style.textAlign = 'center';
+
+      // Loading...
+      const statusMessage = document.createElement('span');
+      statusMessage.classList.add('loading');
+      form.append(statusMessage)
+
+      const request = new XMLHttpRequest()
+      request.open('POST', 'server.php')
+      
+      const formData = new FormData(form);
+
+      const json = JSON.stringify(Object.fromEntries(formData.entries()))
+
+      const obj = { x: 10, y: 20 }
+      console.log(Object.entries(obj))
+
+      postData('http://localhost:3000/request', json)
+        .then((data) => {
+        console.log(data)
+        showMsgModal(msg.success)
+        statusMessage.remove()
+        })
+        .catch(() => {
+        showMsgModal(msg.failure);
+        })
+        .finally(() => {
+        form.reset()
+      })
+
+      request.addEventListener('load', () => {
+        if (request.status == 200) {
+          showMsgModal(msg.success)
+          form.reset()
+          setTimeout(() => {
+            statusMessage.remove()
+          }, 2000);
+        } else {
+          showMsgModal(msg.failure)
+        }
+      })
+    })
+  }
+
+  
+
+  function showMsgModal(message) {
+    const prevModalDialog = document.querySelector('.modal__dialog');
+    prevModalDialog.classList.add('hide');
+    openModal();
+    const msgModal = document.createElement('div')
+    msgModal.classList.add('modal__dialog')
+    msgModal.innerHTML = `
+      <div class="modal__content">
+        <div data-close class="modal__close">&times;</div>
+        <div class="modal__title">${message}</div>
+      </div>
+    `
+
+    document.querySelector('.modal').append(msgModal);
+    setTimeout(() => {
+      msgModal.remove()
+      prevModalDialog.classList.add('show')
+      prevModalDialog.classList.remove('hide')
+      closeModal()
+    }, 4000);
+  }
+
+  /* fetch('http://localhost/serial/menu')
+    .then(data => data.json())
+    .then(res => console.log(res)) */
 })

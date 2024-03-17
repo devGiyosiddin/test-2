@@ -1,0 +1,60 @@
+{
+  "menu": [
+    {
+      "img": "img/tabs/1.png",
+      "altimg": "usual",
+      "title": "Plan 'Usual'",
+      "desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.",
+      "price": "10",
+      "id": "bd8d"
+    },
+    {
+      "img": "img/tabs/2.png",
+      "altimg": "plan",
+      "title": "Plan 'Premium'",
+      "desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.",
+      "price": "20",
+      "id": "a73c"
+    },
+    {
+      "img": "img/tabs/3.png",
+      "altimg": "vip",
+      "title": "Plan 'VIP'",
+      "desc": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit nesciunt facere, sequi exercitationem praesentium ab cupiditatebeatae debitis perspiciatis itaque quaerat id modi corporis delectus ratione nobis harum voluptatum in.",
+      "price": "30",
+      "id": "89ed"
+    }
+  ],
+  "request": [
+    {
+      "id": "201d",
+      "name": "DC_CyreX",
+      "phone": "+998945248401"
+    },
+    {
+      "id": "44b2",
+      "name": "DC_CyreX",
+      "phone": "+64684684684"
+    },
+    {
+      "id": "6955",
+      "name": "DC_CyreX",
+      "phone": "+998945248401"
+    },
+    {
+      "id": "f2f9",
+      "name": "DC_CyreX",
+      "phone": "+998945248401"
+    },
+    {
+      "id": "2861",
+      "name": "DC_CyreX",
+      "phone": "+998945248401"
+    },
+    {
+      "id": "abee",
+      "name": "DC_CyreX",
+      "phone": "+998945248401"
+    }
+  ]
+}
