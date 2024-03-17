@@ -190,13 +190,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  async function  getRecources(url) {
-    const res = await fetch(url)
-
-    return await res.json()
+  async function getResources(url) {
+    const res = await fetch(url);
+    return await res.json();
   }
     
-  getRecources('http://localhost:3000/menu').then((data) => {
+  getResources('http://localhost:3000/menu').then((data) => {
     data.data.forEach(({ img, altimg, title, price }) => {
       new MenuCard(img, altimg, title, price, '.menu .container').render()
     })
